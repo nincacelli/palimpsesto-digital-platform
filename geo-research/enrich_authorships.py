@@ -29,7 +29,7 @@ def oa_id(obj):
 def norm_title(text):
     s=unicodedata.normalize("NFKD",text or "")
     s="".join(c for c in s if not unicodedata.combining(c)).lower()
-    return " ".join(re.findall(r"[a-z0-9]+",s))
+    return " ".join(re.findall(r"[^\\W_]+",s,flags=re.UNICODE))
 def similarity(a,b):
     aa,bb=norm_title(a),norm_title(b)
     return round(SequenceMatcher(None,aa,bb).ratio(),4) if aa and bb else 0.0
