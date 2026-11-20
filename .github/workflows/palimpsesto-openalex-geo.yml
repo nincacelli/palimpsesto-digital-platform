@@ -1,0 +1,35 @@
+name: Palimpsesto geographic metadata enrichment
+
+on:
+  push:
+    branches:
+      - geo/openalex-institutions-20261120
+    paths:
+      - '.github/workflows/palimpsesto-openalex-geo.yml'
+      - 'geo-research/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  enrich-openalex:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Resolve 396 institutional OpenAlex records
+        run: python geo-research/enrich_institutions.py
+        env:
+          OPENALEX_API_KEY: ${{ secrets.OPENALEX_API_KEY }}
+      - name: Upload auditable CSV / GeoJSON / JSON
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: palimpsesto-openalex-institutions-v09
+          path: geo-research/output/
+          retention-days: 30
+          if-no-files-found: warn
