@@ -1,0 +1,36 @@
+name: Palimpsesto OpenAlex paper authorships v10
+
+on:
+  push:
+    branches:
+      - geo/openalex-authorships-20261120
+    paths:
+      - '.github/workflows/palimpsesto-authorships-v10.yml'
+      - 'geo-research/enrich_authorships.py'
+      - 'geo-research/input/corpus_1250_doi_map_v10.csv'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  reconcile-authorships:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Query DOI works and declared author-affiliation records
+        run: python geo-research/enrich_authorships.py
+        env:
+          OPENALEX_API_KEY: ${{ secrets.OPENALEX_API_KEY }}
+      - name: Upload source-linked authorship audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: palimpsesto-authorships-v10
+          path: geo-research/output-authorships/
+          retention-days: 30
+          if-no-files-found: warn
