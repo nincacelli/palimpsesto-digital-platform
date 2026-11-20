@@ -1,12 +1,6 @@
 name: Palimpsesto geographic metadata enrichment
 
 on:
-  push:
-    branches:
-      - geo/openalex-institutions-20261120
-    paths:
-      - '.github/workflows/palimpsesto-openalex-geo.yml'
-      - 'geo-research/**'
   workflow_dispatch:
 
 permissions:
