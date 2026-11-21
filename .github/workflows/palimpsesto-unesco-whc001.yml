@@ -1,0 +1,33 @@
+name: Palimpsesto UNESCO worldwide independent layer
+
+on:
+  push:
+    branches:
+      - geo/unesco-world-evaluation-v14-20261120
+    paths:
+      - '.github/workflows/palimpsesto-unesco-whc001.yml'
+      - 'geo-research/fetch_unesco_world.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  official-unesco-world-list:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Download and audit official UNESCO World Heritage List
+        run: python geo-research/fetch_unesco_world.py
+      - name: Upload worldwide UNESCO dataset
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: palimpsesto-unesco-whc001-world-v14
+          path: geo-research/output-unesco/
+          retention-days: 30
+          if-no-files-found: warn
