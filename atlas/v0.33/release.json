@@ -1,0 +1,30 @@
+{
+  "product": "Palimpsesto Digital Lab — Heritage Knowledge Observatory",
+  "version": "0.33",
+  "release_date": "2026-11-21",
+  "status": "Research prototype",
+  "entry": "./index.html",
+  "archived_original_file": "Palimpsesto_v33.html",
+  "archived_original_sha256": "60a467113af4cfe09dc4ffb7fbb8c1c7e949b3a5274f82ade04765eccdf924f4",
+  "web_file_sha256": "810017efe6a5dd8fe9eaec6eaec90717b85a07a01cca27ad4f18ec50cfea5e66",
+  "web_bytes": 14360825,
+  "web_changes": [
+    "Robots noindex metadata",
+    "Research-prototype description",
+    "Application-name metadata"
+  ],
+  "data_and_scripts_unchanged": true,
+  "maturity_active": {
+    "publications": 13,
+    "applications": 14,
+    "supported_function_profiles": 65
+  },
+  "maturity_archive": {
+    "publications": 14,
+    "applications": 15
+  },
+  "automation": "Automatic selection and classification rules over curated structured evidence. Article retrieval, PDF parsing and automatic evidence extraction are not implemented.",
+  "search_visibility": "noindex; public link access remains available",
+  "copyright": "© 2026 Nina Arquitetura. All rights reserved.",
+  "third_party_licences": "Underlying publications and datasets retain their respective licences and attribution requirements."
+}
